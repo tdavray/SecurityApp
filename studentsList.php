@@ -63,9 +63,14 @@
                     <th>". $values['Email'] ."</th>
                     <th>". $values['CellNum'] ."</th>
                     <th>
-                    <a class=\"img\" onclick=\"window.open('img/". $values['userImage'] . "', '_blank', 'location=yes,height=500,width=500,status=yes');\" >
-                    <img src='img/". $values['userImage'] . "' alt='face' border=3 height=100 width=100>
-                    </a>
+                    <button>";
+            if(!$values['userImage'] ){
+                           echo "<img height=70,width=60 src='images/Default.jpg' onclick=\"window.open(this.src,'_blank', 'location=yes,height=500,width=500,status=yes')\">";
+                         } else{
+                            echo "<img height=70,width=60 src='img/".$values['userImage'].".jpg' onclick=\"window.open(this.src,'_blank', 'location=yes,height=500,width=500,status=yes')\">";
+                        }
+
+                    echo "</button>
                     </th>
                   </tr>";
         }

@@ -12,25 +12,48 @@ function logInForm($failed)
     else{
         $email = "";
     }
+?>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-login">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form id="login-form" action="<?= $_SERVER['SCRIPT_NAME']?>" method="post" role="form" style="display: block;">
+                                    <h2>LOGIN</h2>
 
-    echo '<form class="form-signin" action = "'.$_SERVER["PHP_SELF"].'" method = "POST" >
-    
-                <h2 class="form-signin-heading" > Log in </h2 >';
-
-    if ($failed) {
-        echo '<label class="alert-danger">Can\'t authenticate user, please try again or <a href="register.php">register now</a>:</label>';
-    }
-
-        echo '<input type = "email" name = "pers_data[]" id = "Email" class="form-control form-control-lg" value = "'.$email.'" placeholder = "Enter your email" required autofocus >
-                        </br >
-                        <input type = "password" name = "pers_data[]" id = "password" class="form-control form-control-lg" placeholder = "Enter your password" required >
-                        </br >
-                        <input type = "submit" name = "submitbtn" class="btn btn-block btn-lg btn-primary" value = "Sign In" >
-                        
-                        <a href="register.php">or register now</a>
-            
-                    </form >';
-}
+                                    <?php if ($failed) { ?>
+                                        <label class="alert-danger">Can\'t authenticate user, please try again or <a href="register.php">register now</a>:</label>
+                                    <?php } ?>
+                                    <div class="form-group">
+                                        <input type = "email" name = "pers_data[]" id = "username" class="form-control" value = "<?= $email ?>" placeholder = "Enter your email" required autofocus >
+                                    </div>
+                                    <div class="form-group">
+                                        <input type = "password" name = "pers_data[]" id = "password" class="form-control" placeholder = "Enter your password" required >
+                                    </div>
+                                    <div class="col-xs-6 form-group pull-right">
+                                        <input type="submit" name="submitbtn" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                                    </div>
+                                </form >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6 tabs">
+                                <a href="#" class="active" id="login-form-link"><div class="login">LOGIN</div></a>
+                            </div>
+                            <div class="col-xs-6 tabs">
+                                <a href="register.php" id="register-form-link"><div class="register">REGISTER</div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php }
 
 function registerForm($failed)
 {
@@ -42,26 +65,24 @@ function registerForm($failed)
         $email = $pers_data[2];
     }
     else{
-        $name = $surname = "";
+        $name = $surname = $email = "";
     }
-
-    echo '<form class="form-signin" action = "'.$_SERVER["PHP_SELF"].'" method = "POST" >
+?>
+<form class="form-signin" action = "<?php $_SERVER["PHP_SELF"] ?>" method = "POST" >
     
-                <h2 class="form-signin-heading" > Register </h2 >';
+                <h2 class="form-signin-heading" > Register </h2 >
 
-    if ($failed == 1) {
-        echo '<label class="alert-danger">Can\'t create user, email already used, please try again</label>';
-    }
-    else if ($failed == 2) {
-        echo '<label class="alert-danger">Wrong password, please try again</label>';
-    }
-
-
-    echo '<input type = "text" name = "pers_data[]" id = "Name" class="form-control form-control-lg" value = "'.$name.'" placeholder = "Enter a name" required autofocus >
+<?php if ($failed == 1) { ?>
+        <label class="alert-danger">Can\'t create user, email already used, please try again</label>
+<?php }
+    else if ($failed == 2) { ?>
+        <label class="alert-danger">Wrong password, please try again</label>
+<?php } ?>
+                        <input type = "text" name = "pers_data[]" id = "Name" class="form-control form-control-lg" value = "<?= $name ?>" placeholder = "Enter a name" required autofocus >
                         </br >
-                        <input type = "text" name = "pers_data[]" id = "Surname" class="form-control form-control-lg" value = "'.$surname.'" placeholder = "Enter a surname" required autofocus >
+                        <input type = "text" name = "pers_data[]" id = "Surname" class="form-control form-control-lg" value = "<?= $surname ?>" placeholder = "Enter a surname" required autofocus >
                         </br >
-                        <input type = "email" name = "pers_data[]" id = "Email" class="form-control form-control-lg" value = "'.$email.'" placeholder = "Enter an email" required autofocus >
+                        <input type = "email" name = "pers_data[]" id = "Email" class="form-control form-control-lg" value = "<?= $email ?>" placeholder = "Enter an email" required autofocus >
                         </br >
                         <input type = "password" name = "pers_data[]" id = "password1" class="form-control form-control-lg" placeholder = "Enter a password" required >
                         </br >
@@ -71,27 +92,31 @@ function registerForm($failed)
                         
                         <a href="index.php">You Already have an account ? Login now</a>
             
-                    </form >';
+                    </form >
+<?php
 }
 
 function printUserInfo($info){
-    if($info[0]['userImage'] != ""){
-        echo "<img src='img/". $info[0]['userImage'] . "' alt='faceID' height='150' width='150'><br>";
-        echo "<br>";
-    }
+    if(isset($info[0]['userImage']) AND $info[0]['userImage'] != ""){ ?>
+        <img src='img/<?= $info[0]['userImage'] ?>' alt='faceID' height='150' width='150'><br>
+        <br>
+<?php } ?>
 
-    echo "<h1 class='alert-info'>Hello ". $info[0]["FName"] ." ". $info[0]["LName"] .", welcome</h1>";
-    echo "<h2 class='alert-info'> Your email : ". $info[0]["Email"];
+    <h1 class='alert-info'>Hello <?= $info[0]["FName"] ?> <?= $info[0]["LName"] ?>, welcome</h1>
+    <h2 class='alert-info'> Your email : <?= $info[0]["Email"] ?>
 
-    if($info[0]['CellNum'] != "") {
-        echo "<h2 class='alert-info'> Your phone number : " . $info[0]["CellNum"];
-    }
-    echo "<br><br>";
-    echo "<form action='studentsList.php'> <input class=\"btn btn-primary\" type='submit' value='Show Students'> </form>";
+<?php if(isset($info[0]['CellNum']) AND $info[0]['CellNum'] != "") { ?>
+        <h2 class='alert-info'> Your phone number : <?= $info[0]["CellNum"] ?>
+<?php } ?>
+    <br><br>
+    <form action='studentsList.php'><input class="btn btn-primary" type='submit' value='Show Students'></form>
 
 
+<?php
 }
+?>
 
+<?php
 /*function showStudents(){
     $bdd = co();
     $select = $bdd->prepare("SELECT * From tbl_User ");
@@ -116,3 +141,4 @@ function printUserInfo($info){
     ";
 }*/
 
+?>

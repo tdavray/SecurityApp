@@ -16,4 +16,8 @@ echo "<meta charset=\"utf-8\">
     <link href=\"https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic\" rel=\"stylesheet\" type=\"text/css\">
 
     <!-- Custom styles for this template -->
-    <link href=\"css/landing-page.min.css\" rel=\"stylesheet\">";
+    <link href=\"css/landing-page.min.css\" rel=\"stylesheet\">
+    <link rel='stylesheet' type='text/css' href='css/LoginRegister.css'>
+    <link href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" rel=\"stylesheet\"/>
+    <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js\"></script>
+    <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>";

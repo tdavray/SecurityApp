@@ -20,10 +20,6 @@
 
   <body>
 
-    <header class="masthead text-white text-center">
-
-      <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-
           <?php
               if(isset($_POST['pers_data'])){
                   $pers_data = $_POST['pers_data'];
@@ -64,9 +60,6 @@
 
         ?>
 
-      </div>
-
-    </header>
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
