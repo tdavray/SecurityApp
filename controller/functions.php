@@ -169,12 +169,15 @@ function printUserInfo($info){ ?>
                                 </div>
                             </div>
                         </div>
+                        <div class='panel-footer'>
     <form action='studentsList.php'><input class="btn btn-primary" type='submit' value='Show Students'></form>
+
                     </div>
                 </div>
             </div>
         </div>
-
+        </div>
+    </div>
 
 <?php
 }
