@@ -45,7 +45,6 @@ $bdd->query("DROP TABLE `assessment`, `Date`, `enrolled_for`, `Lab_room`, `Lectu
 
 
 $insert = $bdd->query("
-
 CREATE TABLE Student(
         ID_student Int NOT NULL ,
         FName      Varchar (25) ,
@@ -63,7 +62,6 @@ CREATE TABLE Subject(
         PRIMARY KEY (SubCode )
 )ENGINE=InnoDB;
 
-
 CREATE TABLE Lecturer(
         ID_lecturer Int NOT NULL ,
         Fname       Varchar (25) ,
@@ -72,7 +70,6 @@ CREATE TABLE Lecturer(
         Password    Varchar (50) ,
         PRIMARY KEY (ID_lecturer )
 )ENGINE=InnoDB;
-
 
 CREATE TABLE Venue(
         ID_venue Varchar (25) NOT NULL ,
@@ -93,15 +90,6 @@ CREATE TABLE Theory_room(
 )ENGINE=InnoDB;
 
 
-CREATE TABLE Date(
-        ID_date int (11) Auto_increment  NOT NULL ,
-        Day     Int NOT NULL ,
-        Month   Varchar (25) NOT NULL ,
-        Year    Int NOT NULL ,
-        PRIMARY KEY (ID_date )
-)ENGINE=InnoDB;
-
-
 CREATE TABLE lecturing(
         ID_lecturer Int NOT NULL ,
         SubCode     Varchar (7) NOT NULL ,
@@ -115,7 +103,6 @@ CREATE TABLE enrolled_for(
         PRIMARY KEY (ID_student ,SubCode )
 )ENGINE=InnoDB;
 
-
 CREATE TABLE written_in(
         SubCode  Varchar (7) NOT NULL ,
         ID_venue Varchar (25) NOT NULL ,
@@ -125,11 +112,11 @@ CREATE TABLE written_in(
 
 CREATE TABLE assessment(
         mark       Float ,
+        date_asm   Date ,
         ID_student Int NOT NULL ,
         SubCode    Varchar (7) NOT NULL ,
-        ID_date    Int NOT NULL ,
         ID_venue   Varchar (25) NOT NULL ,
-        PRIMARY KEY (ID_student ,SubCode ,ID_date ,ID_venue )
+        PRIMARY KEY (ID_student ,SubCode ,ID_venue )
 )ENGINE=InnoDB;
 
 ALTER TABLE Lab_room ADD CONSTRAINT FK_Lab_room_ID_venue FOREIGN KEY (ID_venue) REFERENCES Venue(ID_venue);
@@ -142,7 +129,6 @@ ALTER TABLE written_in ADD CONSTRAINT FK_written_in_SubCode FOREIGN KEY (SubCode
 ALTER TABLE written_in ADD CONSTRAINT FK_written_in_ID_venue FOREIGN KEY (ID_venue) REFERENCES Venue(ID_venue);
 ALTER TABLE assessment ADD CONSTRAINT FK_assessment_ID_student FOREIGN KEY (ID_student) REFERENCES Student(ID_student);
 ALTER TABLE assessment ADD CONSTRAINT FK_assessment_SubCode FOREIGN KEY (SubCode) REFERENCES Subject(SubCode);
-ALTER TABLE assessment ADD CONSTRAINT FK_assessment_ID_date FOREIGN KEY (ID_date) REFERENCES Date(ID_date);
 ALTER TABLE assessment ADD CONSTRAINT FK_assessment_ID_venue FOREIGN KEY (ID_venue) REFERENCES Venue(ID_venue);");
 
 

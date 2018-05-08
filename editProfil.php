@@ -5,6 +5,7 @@
  * Date: 08/05/2018
  * Time: 21:18
  */
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,11 +28,9 @@
 </head>
 <body>
 <?php
-include ("Menu.php");
-session_start();
-print_r($_SESSION);
-if(isset($_SESSION)) {
 
+include ("Menu.php");
+if(isset($_SESSION)) {
     $bdd = co();
     $ID_Student = $_SESSION['ID'];
 
@@ -57,13 +56,13 @@ if(isset($_SESSION)) {
 
                                 <h2 class="form-signin-heading" > Edit profil </h2 >
                                 <div class="form-group">
-                                    <input type = "text" name = "pers_data[]" id = "Name" class="form-control form-control-lg" value = "<?= $name ?>" placeholder = "Enter a name" required autofocus >
+                                    <input type = "text" name = "pers_data[]" id = "Name" class="form-control form-control-lg" disabled value = "<?= $name ?>" placeholder = "Enter a name" required autofocus >
                                 </div>
                                 <div class="form-group">
-                                    <input type = "text" name = "pers_data[]" id = "Surname" class="form-control form-control-lg" value = "<?= $surname ?>" placeholder = "Enter a surname" required autofocus >
+                                    <input type = "text" name = "pers_data[]" id = "Surname" class="form-control form-control-lg" disabled value = "<?= $surname ?>" placeholder = "Enter a surname" required autofocus >
                                 </div>
                                 <div class="form-group">
-                                    <input type = "number" name = "pers_data[]" id = "username" class="form-control" value = "<?= $ID_Student ?>" placeholder = "Enter your email" required autofocus >
+                                    <input type = "number" name = "pers_data[]" id = "username" class="form-control form-control-lg" disabled value = "<?= $ID_Student ?>" placeholder = "Enter your email" required autofocus >
                                 </div>
                                 <div class="form-group">
                                     <input type = "email" name = "pers_data[]" id = "Email" class="form-control form-control-lg" value = "<?= $email ?>" placeholder = "Enter an email" required autofocus >
@@ -75,7 +74,7 @@ if(isset($_SESSION)) {
                                     <input type = "password" name = "pers_data[]" id = "password2" class="form-control form-control-lg" placeholder = "Confirm your password" required >
                                 </div>
                                 <div class="col-xs-6 form-group pull-right">
-                                    <input type = "submit" name = "submitbtn" class="btn btn-block btn-lg btn-register" value = "Register" >
+                                    <input type = "submit" name = "submitbtn" class="btn btn-block btn-lg btn-register" value = "Update profile" >
                                 </div>
 
 
@@ -90,11 +89,12 @@ if(isset($_SESSION)) {
 <?php }elseif (isset($_POST['$pers_data[]'])){
     $bdd = co();
     $ID_Student = $_SESSION['ID'];
+    $email = $pers_data[3];
     $password = md5($pers_data[5]);
+    if($md5_password == $info[0]["Password"]) {
+        $select = $bdd->prepare("UPDATE student SET Email = $email , Password =  $password  WHERE ID_student = ?");
 
-    $select = $bdd->prepare("UPDATE student SET Password =  $password WHERE ID_student = ?");
-
-    $select->execute(array($ID_Student));
-    $info = $select->fetchAll();
-
+        $select->execute(array($ID_Student));
+        $info = $select->fetchAll();
+    }
 } ?>

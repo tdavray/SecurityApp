@@ -13,7 +13,7 @@
     require_once "controller/DBconn.php";
     require_once "controller/functions.php";
     include("include_meta.php");
-
+    session_start();
     ?>
 
   </head>
@@ -29,7 +29,7 @@
                   $md5_password = md5($password);
 
                   $_SESSION['ID'] = $ID_Student;
-                  print_r($_SESSION);
+
 
                   $bdd = co();
                   $select = $bdd->prepare("SELECT Password From Student
@@ -54,9 +54,18 @@
                   }
 
               }
+              elseif (isset($_SESSION)){
+                  $ID_Student = $_SESSION['ID'];
+                  $bdd = co();
+                  $select = $bdd->prepare("SELECT * From Student 
+                                            WHERE ID_student = ?");
+
+                  $select->execute(array($ID_Student));
+                  $info = $select->fetchAll();
+
+                  printUserInfo($info);
+              }
               else{
-                  session_start();
-                  session_destroy();
                  logInForm(false);
               }
 

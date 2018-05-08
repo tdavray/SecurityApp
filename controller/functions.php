@@ -195,7 +195,97 @@ function printUserInfo($info)
 
     <?php
 }
+function addAssessmentFrom(){
+
+    $bdd = co();
+
+    if(!isset($_POST['data'])){
+
+        $selectStudent = $bdd->prepare("SELECT ID_student,FName,LName From Student ");
+        $selectStudent->execute();
+        $students = $selectStudent->fetchAll();
+
+        $selectSubject = $bdd->prepare("SELECT * From Subject ");
+        $selectSubject->execute();
+        $subjects = $selectSubject->fetchAll();
+
+        $selectVenue = $bdd->prepare("SELECT ID_venue From Venue ");
+        $selectVenue->execute();
+        $venues = $selectVenue->fetchAll();
+
+        ?>
+        <form class="form-signin" action = "<?php $_SERVER["PHP_SELF"] ?>" method = "POST" >
+
+            <h2 class="form-signin-heading" > Add a new assessment </h2 >
+            <label for="student">Select the student : </label>
+            <select name="data[student]" id="student">
+                <?php
+                foreach($students as $student){
+                    ?>
+                    <option value="<?php echo $student['ID_student']?>"><?php echo $student['FName']." ".$student['LName']." (".$student['ID_student'].")"?></option>
+                    <?php
+                }
+                ?>
+            </select>
+
+            <br>
+
+            <label for="subject">Select the subject : </label>
+            <select name="data[subject]" id="subject">
+                <?php
+                foreach($subjects as $subject){
+                    ?>
+                    <option value="<?php echo $subject['SubCode']?>"><?php echo $subject['SubName']?></option>
+                    <?php
+                }
+                ?>
+            </select>
+
+            <br>
+
+            <label for="venue">Select the venue : </label>
+            <select name="data[venue]" id="venue">
+                <?php
+                foreach($venues as $venue){
+                    ?>
+                    <option value="<?php echo $venue['ID_venue']?>"><?php echo $venue['ID_venue']?></option>
+                    <?php
+                }
+                ?>
+            </select>
+
+            <br>
+
+            <label for="date_asm">Choose the date : </label>
+            <input type="date" name="data[date_asm]" id="date_asm" required>
+
+            <br>
+
+            <input type = "submit" name = "submitbtn" value = "Add" >
+
+        </form >
+        <?php
+    }
+    else{
+        $insert = $bdd->prepare('INSERT INTO assessment(date_asm,ID_student,SubCode,ID_venue)
+                              VALUES (?,?,?,?);');
+
+        $insert->execute(array($_POST['data']['date_asm'],$_POST['data']['student'],$_POST['data']['subject'],$_POST['data']['venue']));
+    }
+
+}
+
+function Logout(){
+    if (isset($_SESSION)){ print_r($_SESSION);
+        session_unset();
+        print_r($_SESSION);
+        session_destroy();
+        print_r($_SESSION);
+    }
+}
     ?>
+
+
 
     <?php
     /*function showStudents(){

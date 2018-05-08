@@ -9,7 +9,7 @@
 <head>
 
     <?php
-
+session_start();
     require_once ("controller/DBconn.php");
     require_once ("controller/functions.php");
     require_once ("include_meta.php");
@@ -63,6 +63,14 @@
                     ?>
                     </button>
                     </td>
+                <?php
+                if(isset($_SESSION["ID"])) {
+                    $ID = $_SESSION['ID'];
+                    if (preg_match("#^1#",$ID)) { ?>
+                    <td><button class="btn btn-primary btn-lg" onclick="window.open('#','_blank', 'location=yes,status=yes')"><span class="glyphicon glyphicon-user" aria-hidden="true">##</span></button></td>
+                   <?php }
+                }
+                ?>
                   </tr>
         <?php } ?>
     </table>
