@@ -17,8 +17,8 @@
     ?>
 
   </head>
-
   <body>
+
 
           <?php
               if(isset($_POST['pers_data'])){
@@ -28,8 +28,8 @@
 
                   $md5_password = md5($password);
 
-                  session_start();
-                  $_SESSION['user'] = $ID_Student;
+                  $_SESSION['ID'] = $ID_Student;
+                  print_r($_SESSION);
 
                   $bdd = co();
                   $select = $bdd->prepare("SELECT Password From Student
@@ -38,8 +38,7 @@
                   $select->execute(array($ID_Student));
                   $info = $select->fetchAll();
 
-
-                  if($md5_password == $info[0][0]){
+                  if(!empty($info) AND $md5_password == $info[0]["Password"]){
                       //Login Réussi
 
                       $select = $bdd->prepare("SELECT * From Student 
@@ -49,7 +48,6 @@
                       $info = $select->fetchAll();
 
                       printUserInfo($info);
-
                   }
                   else{
                       logInForm(true);
@@ -57,6 +55,8 @@
 
               }
               else{
+                  session_start();
+                  session_destroy();
                  logInForm(false);
               }
 

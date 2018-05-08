@@ -1,0 +1,9 @@
+//Récupération mot de passe depuis Email
+SELECT Password FROM Student WHERE Email = *;
+
+//Info student
+SELECT * FROM Student WHERE Email = "" AND Password = "";
+
+//Tout les assessment d'un étudiant
+SELECT a.*,d.* FROM assessment a,student s, date d WHERE a.ID_student = s.ID_student
+													AND a.ID_date = d.ID_date;

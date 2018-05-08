@@ -4,7 +4,7 @@ require_once "DBconn.php";
 
 function logInForm($failed)
 {
-
+    include ("Menu.php");
     if(isset($_POST['pers_data'])) {
         $pers_data = $_POST['pers_data'];
         $ID_Student = $pers_data[0];
@@ -21,7 +21,7 @@ function logInForm($failed)
                         <div class="row">
                             <div class="col-lg-12">
                                 <form id="login-form" action="<?= $_SERVER['SCRIPT_NAME']?>" method="post" role="form" style="display: block;">
-                                    <h2>LOGIN</h2>
+                                    <h2>LOGIN STUDENT</h2>
 
                                     <?php if ($failed) { ?>
                                         <label class="alert-danger">Can't authenticate user, please try again or <a href="register.php">register now</a>:</label>
@@ -42,7 +42,7 @@ function logInForm($failed)
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-6 tabs">
-                                <a href="index.php" class="active" id="login-form-link"><div class="login">LOGIN</div></a>
+                                <a href="index.php" class="active" id="login-form-link"><div class="login">LOGIN LECTURER</div></a>
                             </div>
                             <div class="col-xs-6 tabs">
                                 <a href="register.php" id="register-form-link"><div class="register">REGISTER</div></a>
@@ -57,7 +57,7 @@ function logInForm($failed)
 
 function registerForm($failed)
 {
-
+    include ("Menu.php");
     if(isset($_POST['pers_data'])) {
         $pers_data = $_POST['pers_data'];
         $name = $pers_data[0];
@@ -129,83 +129,97 @@ function registerForm($failed)
 <?php
 }
 
-function printUserInfo($info){ ?>
+function printUserInfo($info)
+
+{ include ("Menu.php");
+?>
+
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
-
-
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">User Detail</h3>
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-3 col-lg-3 " align="center">
-    <?   if(isset($info[0]['userImage']) AND $info[0]['userImage'] != ""){ ?>
-        <img class="img-circle img-responsible" src='img/<?= $info[0]['userImage'] ?>' alt='faceID' height='150' width='150'><br>
-<?php } ?>
-
+                            <div class="col-md-3 col-lg-3">
+                                <? if (isset($info[0]['userImage']) AND $info[0]['userImage'] != "") { ?>
+                                    <img class="img-circle img-responsible" src='img/<?= $info[0]['userImage'] ?>'
+                                         alt='faceID' height='150' width='150'><br>
+                                <? } ?>
+                            </div>
+                        </div>
+                        <div class="row">
                                 <div class=" col-md-9 col-lg-9 ">
                                     <table class="table table-user-information">
                                         <tbody>
                                         <tr>
-                                            <?= $info[0]["FName"] ?> <?= $info[0]["LName"] ?>
-                                        </tr>
-
-                                        <tr>
-                                            <?= $info[0]["ID_Student"] ?>
+                                            <td>First name :</td>
+                                            <td><?= $info[0]["FName"] ?></td>
                                         </tr>
                                         <tr>
-                                            <?= $info[0]["Email"] ?>
+                                            <td>Last name :</td>
+                                            <td><?= $info[0]["LName"] ?></td>
                                         </tr>
-                                <?php if(isset($info[0]['CellNum']) AND $info[0]['CellNum'] != "") { ?>
                                         <tr>
-                                            <?= $info[0]["CellNum"] ?>
+                                            <td>Student number :</td>
+                                            <td><?= $info[0]["ID_student"] ?></td>
                                         </tr>
-                                <?php } ?>
+                                        <tr>
+                                            <td>Email address :</td>
+                                            <td><?= $info[0]["Email"] ?></td>
+                                        </tr>
+                                        <? if (isset($info[0]['CellNum']) AND $info[0]['CellNum'] != "") { ?>
+                                            <tr>
+                                                <td>Phone number :</td>
+                                                <td><?= $info[0]["CellNum"] ?></td>
+                                            </tr>
+                                        <? } ?>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                        </div>
-                        <div class='panel-footer'>
-    <form action='studentsList.php'><input class="btn btn-primary" type='submit' value='Show Students'></form>
 
+                        </div>
+                    <div class='panel-footer'>
+                        <form action='studentsList.php'><input class="btn btn-primary" type='submit' value='Show Students'></form>
                     </div>
+                    </div>
+
                 </div>
             </div>
         </div>
-        </div>
     </div>
 
-<?php
+
+    <?php
 }
-?>
+    ?>
 
-<?php
-/*function showStudents(){
-    $bdd = co();
-    $select = $bdd->prepare("SELECT * From tbl_User ");
-    $select->execute();
-    $info = $select->fetchAll();
+    <?php
+    /*function showStudents(){
+        $bdd = co();
+        $select = $bdd->prepare("SELECT * From tbl_User ");
+        $select->execute();
+        $info = $select->fetchAll();
 
 
-    echo "
-        <script>
-            var sTableData = '';
-            var iRow = 0;
-            
-            sTableData = '<table>';
-            for(iRow=0;iRow<=" . count($info). ";iRow++)
-            {
-                sTableData = sTableData + '<tr><td>specify data you want show</td</tr>';
-            }
-            sTableData = sTableData + '</table>;
-        
-            document.getElementById('lblData').innerHTML = sTableData;
-        </script>
-    ";
-}*/
+        echo "
+            <script>
+                var sTableData = '';
+                var iRow = 0;
+
+                sTableData = '<table>';
+                for(iRow=0;iRow<=" . count($info). ";iRow++)
+                {
+                    sTableData = sTableData + '<tr><td>specify data you want show</td</tr>';
+                }
+                sTableData = sTableData + '</table>;
+
+                document.getElementById('lblData').innerHTML = sTableData;
+            </script>
+        ";
+    }*/
 
 ?>
