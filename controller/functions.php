@@ -129,20 +129,51 @@ function registerForm($failed)
 <?php
 }
 
-function printUserInfo($info){
-    if(isset($info[0]['userImage']) AND $info[0]['userImage'] != ""){ ?>
-        <img src='img/<?= $info[0]['userImage'] ?>' alt='faceID' height='150' width='150'><br>
-        <br>
+function printUserInfo($info){ ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">User Detail</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 " align="center">
+    <?   if(isset($info[0]['userImage']) AND $info[0]['userImage'] != ""){ ?>
+        <img class="img-circle img-responsible" src='img/<?= $info[0]['userImage'] ?>' alt='faceID' height='150' width='150'><br>
 <?php } ?>
 
-    <h1 class='alert-info'>Hello <?= $info[0]["FName"] ?> <?= $info[0]["LName"] ?>, welcome</h1>
-    <h2 class='alert-info'> Your email : <?= $info[0]["Email"] ?>
+                                <div class=" col-md-9 col-lg-9 ">
+                                    <table class="table table-user-information">
+                                        <tbody>
+                                        <tr>
+                                            <?= $info[0]["FName"] ?> <?= $info[0]["LName"] ?>
+                                        </tr>
 
-<?php if(isset($info[0]['CellNum']) AND $info[0]['CellNum'] != "") { ?>
-        <h2 class='alert-info'> Your phone number : <?= $info[0]["CellNum"] ?>
-<?php } ?>
-    <br><br>
+                                        <tr>
+                                            <?= $info[0]["ID_Student"] ?>
+                                        </tr>
+                                        <tr>
+                                            <?= $info[0]["Email"] ?>
+                                        </tr>
+                                <?php if(isset($info[0]['CellNum']) AND $info[0]['CellNum'] != "") { ?>
+                                        <tr>
+                                            <?= $info[0]["CellNum"] ?>
+                                        </tr>
+                                <?php } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
     <form action='studentsList.php'><input class="btn btn-primary" type='submit' value='Show Students'></form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 <?php

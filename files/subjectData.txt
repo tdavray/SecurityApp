@@ -1,25 +1,25 @@
-ADF151S, Applications Development Foundations 1
-BPR151S, Business Practice 1
-CNF151S, Communications Networks Foundations 1
-ICF151S, ICT Fundamentals 1
-MUF151S, Multimedia Foundations 1
-PRC151S, Professional Communications 1
-PRG151S, Programming 1
-ADF261S, Applications Development Fundamentals 2
-CND261S, Communications Networks Des. 2
-CNF261S, Communications Networks Fundamentals 2
-CNP261S, Communications Networks Pract. 2
-CMT261S, Communication Networks Theory 2
-ICE261S, ICT Electives 2
-INM261S, Information Management 2
-MAF261S, Multimedia Applications Fundamentals 2
-PRC261S, Professional Communications 2
-PRT261S, Project 2
-CND371S, Communications Networks Des. 3
-CNP371S, Communication Networks Prac. 3
-CMT371S, Communication Networks Theory 3
-ICE361S, ICT Electives 3
-PFP361S, Professional Practice 3
-PRT361S, Project 3
-PRM371S, Project Management 3
-PRP371S, Project Presentation 3
+ADF151S,Applications Development Foundations 1
+BPR151S,Business Practice 1
+CNF151S,Communications Networks Foundations 1
+ICF151S,ICT Fundamentals 1
+MUF151S,Multimedia Foundations 1
+PRC151S,Professional Communications 1
+PRG151S,Programming 1
+ADF261S,Applications Development Fundamentals 2
+CND261S,Communications Networks Des. 2
+CNF261S,Communications Networks Fundamentals 2
+CNP261S,Communications Networks Pract. 2
+CMT261S,Communication Networks Theory 2
+ICE261S,ICT Electives 2
+INM261S,Information Management 2
+MAF261S,Multimedia Applications Fundamentals 2
+PRC261S,Professional Communications 2
+PRT261S,Project 2
+CND371S,Communications Networks Des. 3
+CNP371S,Communication Networks Prac. 3
+CMT371S,Communication Networks Theory 3
+ICE361S,ICT Electives 3
+PFP361S,Professional Practice 3
+PRT361S,Project 3
+PRM371S,Project Management 3
+PRP371S,Project Presentation 3

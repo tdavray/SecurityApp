@@ -193,15 +193,15 @@ ALTER TABLE assessment ADD CONSTRAINT FK_assessment_ID_date FOREIGN KEY (ID_date
 ALTER TABLE assessment ADD CONSTRAINT FK_assessment_ID_venue FOREIGN KEY (ID_venue) REFERENCES Venue(ID_venue);");
 
 
-$userData = file ("../files/userData.txt");
+$userData = file ("../files/studentData.txt",FILE_IGNORE_NEW_LINES);
 
 foreach ($userData as $key => $value){
     $value = addslashes($value);
     $value = explode(' ',$value);
 
-    $insert = $bdd->prepare('INSERT INTO Student(FName,LName,Email,Password) 
-                              VALUES (?,?,?,?);');
-    $insert->execute(array($value[0],$value[1],$value[2],$value[3]));
+    $insert = $bdd->prepare('INSERT INTO Student(ID_student,FName,LName,Email,CellNum,Password,userImage) 
+                              VALUES (?,?,?,?,?,,??);');
+    $insert->execute(array($value[0],$value[1],$value[2],$value[3],$value[4],$value[5],''));
 }
 
 $subjectData = file("../files/subjectData.txt",FILE_IGNORE_NEW_LINES);
