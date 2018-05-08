@@ -323,6 +323,7 @@ require_once ("Menu.php");
 
     function showAssessment($id){
         $bdd = co();
+        
         $select = $bdd->prepare("SELECT a.Mark,a.ID_venue,s.SubName, le.LName From Assessment a, Subject s, lecturing lg, lecturer le WHERE a.SubCode = s.SubCode
                                                                                           AND s.SubCode = lg.SubCode
                                                                                           AND lg.ID_Lecturer = le.ID_Lecturer
