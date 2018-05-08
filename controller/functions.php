@@ -7,10 +7,10 @@ function logInForm($failed)
 
     if(isset($_POST['pers_data'])) {
         $pers_data = $_POST['pers_data'];
-        $email = $pers_data[0];
+        $ID_Student = $pers_data[0];
     }
     else{
-        $email = "";
+        $ID_Student = "";
     }
 ?>
     <div class="container">
@@ -24,17 +24,17 @@ function logInForm($failed)
                                     <h2>LOGIN</h2>
 
                                     <?php if ($failed) { ?>
-                                        <label class="alert-danger">Can\'t authenticate user, please try again or <a href="register.php">register now</a>:</label>
-                                    <?php } ?>
+                                        <label class="alert-danger">Can't authenticate user, please try again or <a href="register.php">register now</a>:</label>
+                                    <?php }else{ ?>
                                     <div class="form-group">
-                                        <input type = "email" name = "pers_data[]" id = "username" class="form-control" value = "<?= $email ?>" placeholder = "Enter your email" required autofocus >
+                                        <input type = "number" name = "pers_data[]" id = "username" class="form-control" value = "<?= $ID_Student ?>" placeholder = "Enter your email" required autofocus >
                                     </div>
                                     <div class="form-group">
                                         <input type = "password" name = "pers_data[]" id = "password" class="form-control" placeholder = "Enter your password" required >
                                     </div>
                                     <div class="col-xs-6 form-group pull-right">
                                         <input type="submit" name="submitbtn" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
-                                    </div>
+                                    </div><?php } ?>
                                 </form >
                             </div>
                         </div>
@@ -42,7 +42,7 @@ function logInForm($failed)
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-6 tabs">
-                                <a href="#" class="active" id="login-form-link"><div class="login">LOGIN</div></a>
+                                <a href="index.php" class="active" id="login-form-link"><div class="login">LOGIN</div></a>
                             </div>
                             <div class="col-xs-6 tabs">
                                 <a href="register.php" id="register-form-link"><div class="register">REGISTER</div></a>
@@ -62,37 +62,70 @@ function registerForm($failed)
         $pers_data = $_POST['pers_data'];
         $name = $pers_data[0];
         $surname = $pers_data[1];
-        $email = $pers_data[2];
+        $ID_Student = $pers_data[2];
+        $email = $pers_data[3];
     }
     else{
-        $name = $surname = $email = "";
+        $name = $surname = $email = $ID_Student = "";
     }
 ?>
-<form class="form-signin" action = "<?php $_SERVER["PHP_SELF"] ?>" method = "POST" >
+    <div class="container">
+    <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-login">
+    <div class="panel-body">
+    <div class="row">
+    <div class="col-lg-12">
+<form class="form-signin" action = "<?php $_SERVER["PHP_SELF"] ?>" method = "POST" style="display: block">
     
                 <h2 class="form-signin-heading" > Register </h2 >
 
 <?php if ($failed == 1) { ?>
-        <label class="alert-danger">Can\'t create user, email already used, please try again</label>
+        <label class="alert-danger">Can't create user, email already used, please try again</label>
 <?php }
     else if ($failed == 2) { ?>
         <label class="alert-danger">Wrong password, please try again</label>
-<?php } ?>
+<?php } ?>               <div class="form-group">
                         <input type = "text" name = "pers_data[]" id = "Name" class="form-control form-control-lg" value = "<?= $name ?>" placeholder = "Enter a name" required autofocus >
-                        </br >
+    </div>
+    <div class="form-group">
                         <input type = "text" name = "pers_data[]" id = "Surname" class="form-control form-control-lg" value = "<?= $surname ?>" placeholder = "Enter a surname" required autofocus >
-                        </br >
+    </div>
+    <div class="form-group">
+        <input type = "number" name = "pers_data[]" id = "username" class="form-control" value = "<?= $ID_Student ?>" placeholder = "Enter your email" required autofocus >
+    </div>
+    <div class="form-group">
                         <input type = "email" name = "pers_data[]" id = "Email" class="form-control form-control-lg" value = "<?= $email ?>" placeholder = "Enter an email" required autofocus >
-                        </br >
+    </div>
+    <div class="form-group">
                         <input type = "password" name = "pers_data[]" id = "password1" class="form-control form-control-lg" placeholder = "Enter a password" required >
-                        </br >
-                        <input type = "password" name = "pers_data[]" id = "password2" class="form-control form-control-lg" placeholder = "Enter your password a second time" required >
-                        </br >
-                        <input type = "submit" name = "submitbtn" class="btn btn-block btn-lg btn-primary" value = "Register" >
-                        
-                        <a href="index.php">You Already have an account ? Login now</a>
+    </div>
+    <div class="form-group">
+                        <input type = "password" name = "pers_data[]" id = "password2" class="form-control form-control-lg" placeholder = "Confirm your password" required >
+    </div>
+    <div class="col-xs-6 form-group pull-right">
+                        <input type = "submit" name = "submitbtn" class="btn btn-block btn-lg btn-register" value = "Register" >
+    </div>
+
             
                     </form >
+    </div>
+    </div>
+    </div>
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-6 tabs">
+                    <a href="index.php" class="active" id="login-form-link"><div class="login">LOGIN</div></a>
+                </div>
+                <div class="col-xs-6 tabs">
+                    <a href="register.php" id="register-form-link"><div class="register">REGISTER</div></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
 <?php
 }
 

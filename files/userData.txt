@@ -1,3 +1,4 @@
+Ayman Fattar admin@admin.com 21232f297a57a5a743894a0e4a801fc3 1
 John Doe j.doe@abc.co.za 29ef52e7563626a96cea7f4b4085c124
 Joe Dire j.dire@gmail.com d0adc1b5ee970d516b38ff35d3bc9c83
 Teo Hue t.hue@efrei.net 83c59f4eb2007c9ed8f115f10368dac1

@@ -57,7 +57,7 @@ $insert = $bdd->query("CREATE TABLE Student(
 #------------------------------------------------------------
 
 CREATE TABLE Assessment(
-    mark       Float ,
+    Mark       Float ,
         ID_student Int NOT NULL ,
         ID_subject Int NOT NULL ,
         ID_date    Int NOT NULL ,
@@ -193,7 +193,7 @@ ALTER TABLE assessment ADD CONSTRAINT FK_assessment_ID_date FOREIGN KEY (ID_date
 ALTER TABLE assessment ADD CONSTRAINT FK_assessment_ID_venue FOREIGN KEY (ID_venue) REFERENCES Venue(ID_venue);");
 
 
-$userData = file ("../files/userData.txt",FILE_IGNORE_NEW_LINES);
+$userData = file ("../files/userData.txt");
 
 foreach ($userData as $key => $value){
     $value = addslashes($value);
@@ -209,7 +209,6 @@ $subjectData = file("../files/subjectData.txt",FILE_IGNORE_NEW_LINES);
 foreach ($subjectData as $key => $value){
     $value = addslashes($value);
     $value = explode(',',$value);
-    echo "$value[0] ";
 
     $insertSubject = $bdd->prepare('INSERT INTO Subject(SubCode,SubName) 
                               VALUES (?,?);');
