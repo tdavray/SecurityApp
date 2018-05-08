@@ -30,7 +30,7 @@ session_start();
 <?php
 
 include ("Menu.php");
-if(isset($_SESSION)) {
+if(isset($_SESSION['ID'])) {
     $bdd = co();
     $ID_Student = $_SESSION['ID'];
 
@@ -97,4 +97,5 @@ if(isset($_SESSION)) {
         $select->execute(array($ID_Student));
         $info = $select->fetchAll();
     }
-} ?>
+}else
+    header("location:index.php");?>

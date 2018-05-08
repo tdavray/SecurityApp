@@ -27,7 +27,7 @@ function logInForm($failed)
                                         <label class="alert-danger">Can't authenticate user, please try again or <a href="register.php">register now</a>:</label>
                                     <?php }else{ ?>
                                     <div class="form-group">
-                                        <input type = "number" name = "pers_data[]" id = "username" class="form-control" value = "<?= $ID_Student ?>" placeholder = "Enter your email" required autofocus >
+                                        <input type = "text" name = "pers_data[]" id = "username" class="form-control" value = "<?= $ID_Student ?>" placeholder = "Enter your student number" required autofocus >
                                     </div>
                                     <div class="form-group">
                                         <input type = "password" name = "pers_data[]" id = "password" class="form-control" placeholder = "Enter your password" required >
@@ -144,10 +144,13 @@ function printUserInfo($info)
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3 col-lg-3">
-                                <? if (isset($info[0]['userImage']) AND $info[0]['userImage'] != "") { ?>
-                                    <img class="img-circle img-responsible" src='img/<?= $info[0]['userImage'] ?>'
-                                         alt='faceID' height='150' width='150'><br>
-                                <? } ?>
+
+                                <?php if (!empty($info)){
+                                    if (isset($info[0]['userImage']) AND $info[0]['userImage'] != "") { ?>
+                                        <img class="img-circle img-responsible" src="img/<?= $info[0]['userImage'] ?>"
+                                             alt='faceID' height='150' width='150'><br>
+                                    <?php }
+                                ?>
                             </div>
                         </div>
                         <div class="row">
@@ -156,35 +159,38 @@ function printUserInfo($info)
                                         <tbody>
                                         <tr>
                                             <td>First name :</td>
-                                            <td><?= $info[0]["FName"] ?></td>
+                                            <td><?= $info[0]["Fname"] ?></td>
                                         </tr>
                                         <tr>
                                             <td>Last name :</td>
                                             <td><?= $info[0]["LName"] ?></td>
                                         </tr>
                                         <tr>
+                                            <?php if (preg_match("#^2#",$_SESSION['ID'])) { ?>
                                             <td>Student number :</td>
                                             <td><?= $info[0]["ID_student"] ?></td>
+                                            <?php }elseif (preg_match("#^1#",$_SESSION['ID'])) { ?>
+                                            <td>Lecturer number :</td>
+                                            <td><?= $info[0]["ID_lecturer"] ?></td>
+                                            <?php } ?>
                                         </tr>
                                         <tr>
                                             <td>Email address :</td>
                                             <td><?= $info[0]["Email"] ?></td>
                                         </tr>
-                                        <? if (isset($info[0]['CellNum']) AND $info[0]['CellNum'] != "") { ?>
+                                        <?php if (isset($info[0]['CellNum']) AND $info[0]['CellNum'] != "") { ?>
                                             <tr>
                                                 <td>Phone number :</td>
                                                 <td><?= $info[0]["CellNum"] ?></td>
                                             </tr>
-                                        <? } ?>
+                                        <?php } } ?>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
 
                         </div>
-                    <div class='panel-footer'>
-                        <form action='studentsList.php'><input class="btn btn-primary" type='submit' value='Show Students'></form>
-                    </div>
+
                     </div>
 
                 </div>
@@ -195,11 +201,12 @@ function printUserInfo($info)
 
     <?php
 }
-function addAssessmentFrom(){
-
+function addAssessmentFrom()
+{
+include ("Menu.php");
     $bdd = co();
 
-    if(!isset($_POST['data'])){
+    if (!isset($_POST['data'])) {
 
         $selectStudent = $bdd->prepare("SELECT ID_student,FName,LName From Student ");
         $selectStudent->execute();
@@ -214,76 +221,76 @@ function addAssessmentFrom(){
         $venues = $selectVenue->fetchAll();
 
         ?>
-        <form class="form-signin" action = "<?php $_SERVER["PHP_SELF"] ?>" method = "POST" >
+        <div class="container">
+        <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-login">
+        <div class="panel-body">
+        <div class="row">
+        <div class="col-lg-12">
+        <form class="form-signin" action="<?php $_SERVER["PHP_SELF"] ?>" method="POST">
 
-            <h2 class="form-signin-heading" > Add a new assessment </h2 >
+            <h2 class="form-signin-heading"> Add a new assessment </h2>
+            <div class="form-group">
             <label for="student">Select the student : </label>
             <select name="data[student]" id="student">
                 <?php
-                foreach($students as $student){
+                foreach ($students as $student) {
                     ?>
-                    <option value="<?php echo $student['ID_student']?>"><?php echo $student['FName']." ".$student['LName']." (".$student['ID_student'].")"?></option>
+                    <option value="<?php echo $student['ID_student'] ?>"><?php echo $student['FName'] . " " . $student['LName'] . " (" . $student['ID_student'] . ")" ?></option>
                     <?php
                 }
                 ?>
             </select>
-
-            <br>
-
+            </div>
+            <div class="form-group">
             <label for="subject">Select the subject : </label>
             <select name="data[subject]" id="subject">
                 <?php
-                foreach($subjects as $subject){
+                foreach ($subjects as $subject) {
                     ?>
-                    <option value="<?php echo $subject['SubCode']?>"><?php echo $subject['SubName']?></option>
+                    <option value="<?php echo $subject['SubCode'] ?>"><?php echo $subject['SubName'] ?></option>
                     <?php
                 }
                 ?>
             </select>
-
-            <br>
-
+            </div>
+            <div class="form-group">
             <label for="venue">Select the venue : </label>
             <select name="data[venue]" id="venue">
                 <?php
-                foreach($venues as $venue){
+                foreach ($venues as $venue) {
                     ?>
-                    <option value="<?php echo $venue['ID_venue']?>"><?php echo $venue['ID_venue']?></option>
+                    <option value="<?php echo $venue['ID_venue'] ?>"><?php echo $venue['ID_venue'] ?></option>
                     <?php
                 }
                 ?>
             </select>
-
-            <br>
-
+            </div>
+            <div class="form-group">
             <label for="date_asm">Choose the date : </label>
             <input type="date" name="data[date_asm]" id="date_asm" required>
-
-            <br>
-
-            <input type = "submit" name = "submitbtn" value = "Add" >
-
-        </form >
+            </div>
+            <div class="col-xs-6 form-group pull-right">
+            <input type="submit" name="submitbtn" value="Add">
+            </div>
+        </form>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
         <?php
-    }
-    else{
+    } else {
         $insert = $bdd->prepare('INSERT INTO assessment(date_asm,ID_student,SubCode,ID_venue)
                               VALUES (?,?,?,?);');
 
-        $insert->execute(array($_POST['data']['date_asm'],$_POST['data']['student'],$_POST['data']['subject'],$_POST['data']['venue']));
+        $insert->execute(array($_POST['data']['date_asm'], $_POST['data']['student'], $_POST['data']['subject'], $_POST['data']['venue']));
     }
 
-}
-
-function Logout(){
-    if (isset($_SESSION)){ print_r($_SESSION);
-        session_unset();
-        print_r($_SESSION);
-        session_destroy();
-        print_r($_SESSION);
-    }
-}
-    ?>
+}  ?>
 
 
 
@@ -329,7 +336,6 @@ function Logout(){
         </tr>
         <?php
         foreach($assessments as $assessment){
-            print_r($assessment);
 
         ?>
             <tr>

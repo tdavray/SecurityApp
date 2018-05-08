@@ -23,38 +23,52 @@
           <?php
               if(isset($_POST['pers_data'])){
                   $pers_data = $_POST['pers_data'];
-                  $ID_Student = $pers_data[0];
+                  $ID = $pers_data[0];
                   $password = $pers_data[1];
 
                   $md5_password = md5($password);
 
-                  $_SESSION['ID'] = $ID_Student;
+                  $_SESSION['ID'] = $ID;
+
 
 
                   $bdd = co();
-                  $select = $bdd->prepare("SELECT Password From Student
+                  if (preg_match("#^2#",$ID)) {
+                      $select = $bdd->prepare("SELECT Password From Student
                                             WHERE ID_student = ?");
 
-                  $select->execute(array($ID_Student));
-                  $info = $select->fetchAll();
+                      $select->execute(array($ID));
+                      $info = $select->fetchAll();
+                  }elseif (preg_match("#^1#",$ID)) {
+                      $select = $bdd->prepare("SELECT Password From Lecturer
+                                            WHERE ID_lecturer = ?");
 
+                      $select->execute(array($ID));
+                      $info = $select->fetchAll();
+                  }
                   if(!empty($info) AND $md5_password == $info[0]["Password"]){
                       //Login Réussi
-
-                      $select = $bdd->prepare("SELECT * From Student 
+                      if (preg_match("#^2#",$ID)) {
+                          $select = $bdd->prepare("SELECT * From Student 
                                             WHERE ID_student = ?");
+                          $select->execute(array($ID));
+                          $info = $select->fetchAll();
+;                          printUserInfo($info);
+                      }elseif (preg_match("#^1#",$ID)) {
+                          $select = $bdd->prepare("SELECT * From Lecturer
+                                            WHERE ID_lecturer = ?");
+                          $select->execute(array($ID));
+                          $info = $select->fetchAll();
+                          printUserInfo($info);
+                      }
 
-                      $select->execute(array($ID_Student));
-                      $info = $select->fetchAll();
-
-                      printUserInfo($info);
                   }
                   else{
                       logInForm(true);
                   }
 
               }
-              elseif (isset($_SESSION)){
+              elseif (isset($_SESSION['ID'])){
                   $ID_Student = $_SESSION['ID'];
                   $bdd = co();
                   $select = $bdd->prepare("SELECT * From Student 

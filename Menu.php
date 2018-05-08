@@ -5,14 +5,6 @@
  * Date: 08/05/2018
  * Time: 20:49
  */
-function Logout(){
-    if (isset($_SESSION)){ print_r($_SESSION);
-        session_unset();
-        print_r($_SESSION);
-        session_destroy();
-        print_r($_SESSION);
-    }
-}
 ?>
 
 <nav class="navbar navbar-default">
@@ -27,11 +19,14 @@ function Logout(){
                 </ul>
         <?php if (preg_match("#^1#",$ID)){ ?>
             <ul class="nav navbar-nav">
-                <li><a href="#">Add Assessment</a></li>
+                <li><a href="addAssessment.php">Add Assessment</a></li>
             </ul>
         <?php } ?>
-                <p class="navbar-text navbar-right">Signed in as <a href="editProfil.php" class="navbar-link"><?= $_SESSION["ID"] ?></a></p>
-                <form action="index.php"><button type="submit" onclick="Logout()">Log out</button></form>
+
+                <ul class="nav navbar-nav">
+                    <li><p class="navbar-text navbar-right">Signed in as <a href="editProfil.php" class="navbar-link"><?= $_SESSION["ID"] ?></a></p>
+                </li>                   <li><a class="navbar-right" href="Logout.php">Log out</a></li>
+                </ul>
             <?php }
             else{ ?>
         <ul class="nav navbar-nav">
