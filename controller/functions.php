@@ -312,4 +312,33 @@ function Logout(){
         ";
     }*/
 
+    function showAssessment($id){
+        $bdd = co();
+        $select = $bdd->prepare("SELECT a.Mark,a.ID_venue,s.SubName From Assessment a, Subject s WHERE a.SubCode = s.SubCode
+                                                                                          AND ID_student = ? ");
+        $select->execute(array($id));
+        $assessments = $select->fetchAll();
+
+        ?>
+
+        <table class="table">
+        <tr>
+            <th>Subject</th>
+            <th>Venue</th>
+            <th>Mark</th>
+        </tr>
+        <?php
+        foreach($assessments as $assessment){
+            print_r($assessment);
+
+        ?>
+            <tr>
+                <td> <?= $assessment['SubName'] ?></td>
+                <td> <?= $assessment['ID_venue'] ?></td>
+                <td> <?= $assessment['Mark'] ?></td>
+            </tr>
+        <?php
+        }
+
+    }
 ?>
