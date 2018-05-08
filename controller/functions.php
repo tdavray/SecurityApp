@@ -347,4 +347,37 @@ include ("Menu.php");
         }
 
     }
+
+    function showSubject($id){
+        $bdd = co();
+        ?>
+        <table class="table">
+            <tr>
+                <th>Subject code</th>
+                <th>Subject Name</th>
+            </tr>
+        <?php
+
+        if (preg_match("#^1#",$id)){
+            $select = $bdd->prepare("SELECT s.* FROM lecturing l,Subject s WHERE s.SubCode = l.SubCode
+                                                                                          AND   l.ID_lecturer = ?");
+            $select->execute(array($id));
+            $subjects = $select->fetchAll();
+        }
+        else{
+            $select = $bdd->prepare("SELECT s.* FROM enrolled_for e,Subject s WHERE s.SubCode = e.SubCode
+                                                                                          AND   e.ID_student = ?");
+            $select->execute(array($id));
+            $subjects = $select->fetchAll();
+        }
+
+        foreach($subjects as $subject){
+            ?>
+            <tr>
+                <td> <?= $subject['SubCode'] ?></td>
+                <td> <?= $subject['SubName'] ?></td>
+            </tr>
+            <?php
+        }
+    }
 ?>
