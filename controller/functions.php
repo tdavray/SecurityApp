@@ -203,7 +203,7 @@ function printUserInfo($info)
 }
 function addAssessmentFrom()
 {
-include ("Menu.php");
+require_once ("Menu.php");
     $bdd = co();
 
     if (!isset($_POST['data'])) {
@@ -288,6 +288,8 @@ include ("Menu.php");
                               VALUES (?,?,?,?);');
 
         $insert->execute(array($_POST['data']['date_asm'], $_POST['data']['student'], $_POST['data']['subject'], $_POST['data']['venue']));
+        $_POST['data'] = NULL;
+        addAssessmentFrom();
     }
 
 }  ?>
@@ -321,7 +323,9 @@ include ("Menu.php");
 
     function showAssessment($id){
         $bdd = co();
-        $select = $bdd->prepare("SELECT a.Mark,a.ID_venue,s.SubName From Assessment a, Subject s WHERE a.SubCode = s.SubCode
+        $select = $bdd->prepare("SELECT a.Mark,a.ID_venue,s.SubName, le.LName From Assessment a, Subject s, lecturing lg, lecturer le WHERE a.SubCode = s.SubCode
+                                                                                          AND s.SubCode = lg.SubCode
+                                                                                          AND lg.ID_Lecturer = le.ID_Lecturer
                                                                                           AND ID_student = ? ");
         $select->execute(array($id));
         $assessments = $select->fetchAll();
@@ -332,6 +336,7 @@ include ("Menu.php");
         <tr>
             <th>Subject</th>
             <th>Venue</th>
+            <th>Lecturer</th>
             <th>Mark</th>
         </tr>
         <?php
@@ -341,6 +346,7 @@ include ("Menu.php");
             <tr>
                 <td> <?= $assessment['SubName'] ?></td>
                 <td> <?= $assessment['ID_venue'] ?></td>
+                <td> <?= $assessment['LName'] ?></td>
                 <td> <?= $assessment['Mark'] ?></td>
             </tr>
         <?php
