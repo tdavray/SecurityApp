@@ -36,7 +36,8 @@ function logInForm($failed)
                                     <h2>LOGIN</h2>
 
                                     <?php if ($failed) { ?>
-                                        <label class="alert-danger">Can't authenticate user, please try again or <a href="register.php">register now</a>:</label>
+                                        <h3 class="alert-danger">Can't authenticate user, please try again or <a
+                                                    href="register.php">register now</a>:</h3>
                                     <?php }else{ ?>
                                         <div class="form-group">
                                             <input type="text" name="pers_data[]" id="username" class="form-control"
@@ -102,10 +103,10 @@ function registerForm($failed)
                                     <h2 class="form-signin-heading"> Register </h2>
 
                                     <?php if ($failed == 1) { ?>
-                                        <label class="alert-danger">Can't create user, email already used, please try
-                                            again</label>
+                                        <h3 class="alert-danger">Can't create user, email already used, please try
+                                            again</h3>
                                     <?php } else if ($failed == 2) { ?>
-                                        <label class="alert-danger">Wrong password, please try again</label>
+                                        <h3 class="alert-danger">Wrong password, please try again</h3>
                                     <?php } ?>
                                     <div class="form-group">
                                         <input type="text" name="pers_data[]" id="Name"
@@ -279,10 +280,10 @@ function addAssessmentFrom()
                                 <div class="col-lg-12">
                                     <form class="form-signin" action="<?php $_SERVER["PHP_SELF"] ?>" method="POST">
 
-                                        <h2 class="form-signin-heading"> Add a new assessment </h2>
+                                        <h1 class="form-signin-heading"> Add a new assessment </h1>
                                         <div class="form-group">
-                                            <label for="student">Select the student : </label>
-                                            <select name="data[student]" id="student">
+                                            <h3 for="student">Select the student : </h3>
+                                            <select name="data[student]" class="form-control" id="student">
                                                 <?php
                                                 foreach ($students as $student) {
                                                     ?>
@@ -293,8 +294,8 @@ function addAssessmentFrom()
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="subject">Select the subject : </label>
-                                            <select name="data[subject]" id="subject">
+                                            <h3 for="subject">Select the subject : </h3>
+                                            <select name="data[subject]" class="form-control" id="subject">
                                                 <?php
                                                 foreach ($subjects as $subject) {
                                                     ?>
@@ -305,8 +306,8 @@ function addAssessmentFrom()
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="venue">Select the venue : </label>
-                                            <select name="data[venue]" id="venue">
+                                            <h3 for="venue">Select the venue : </h3>
+                                            <select name="data[venue]" class="form-control" id="venue">
                                                 <?php
                                                 foreach ($venues as $venue) {
                                                     ?>
@@ -317,11 +318,13 @@ function addAssessmentFrom()
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="date_asm">Choose the date : </label>
-                                            <input type="date" name="data[date_asm]" id="date_asm" required>
+                                            <h3 for="date_asm">Choose the date : </h3>
+                                            <input type="date" class="form-control" name="data[date_asm]" id="date_asm"
+                                                   required>
                                         </div>
                                         <div class="col-xs-6 form-group pull-right">
-                                            <input type="submit" name="submitbtn" value="Add">
+                                            <input type="submit" name="submitbtn" class="form-control   btn-login"
+                                                   value="Add">
                                         </div>
                                     </form>
                                 </div>

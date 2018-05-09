@@ -23,14 +23,16 @@ if (isset($_POST['ID'])) {
                                             WHERE ID_student = ?");
         $select->execute(array($ID));
         $info = $select->fetchAll();
+        print_r($info);
     } elseif (preg_match("#^1#", $ID)) {
         $select = $bdd->prepare("SELECT * From Lecturer
                                             WHERE ID_lecturer = ?");
         $select->execute(array($ID));
         $info = $select->fetchAll();
+        print_r($info);
     }
     $newPassword = generateRandomString();
-    mail("aymanfattar@gmail.com", "Reset Password", "Your new password is $newPassword");
+    mail($info['Email'], "Reset Password", "HellpYour new password is $newPassword");
     if (preg_match("#^2#", $ID)) {
         $select = $bdd->prepare("UPDATE student SET Password =  $newPassword  WHERE ID_student = ?");
 
