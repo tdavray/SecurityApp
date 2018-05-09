@@ -1,10 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ayman
- * Date: 08/05/2018
- * Time: 21:18
+/*
+ * Student 1 : Ayman Fattar
+ * Student 2 : Theodore D'Avray
+ * Student# 1 : 218327676
+ * Student# 2 : 218327641
+ * Declaration: This is my own work and
+ *  any code obtained from other sources
+ *  will be referenced
  */
+?>
+<?php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -32,18 +37,27 @@ session_start();
 include ("Menu.php");
 if(isset($_SESSION['ID'])) {
     $bdd = co();
-    $ID_Student = $_SESSION['ID'];
-
-    $select = $bdd->prepare("SELECT * From Student 
+    $ID = $_SESSION['ID'];
+    if (preg_match("#^2#", $ID)) {
+        $select = $bdd->prepare("SELECT * From Student 
                                             WHERE ID_student = ?");
+        $select->execute(array($ID));
+        $info = $select->fetchAll();
+        $pers_data = $info[0];
+        $name = $pers_data[0];
+        $surname = $pers_data[1];
+        $email = $pers_data[3];
+    } elseif (preg_match("#^1#", $ID)) {
+        $select = $bdd->prepare("SELECT * From Lecturer
+                                            WHERE ID_lecturer = ?");
+        $select->execute(array($ID));
+        $info = $select->fetchAll();
+        $pers_data = $info[0];
+        $name = $pers_data[0];
+        $surname = $pers_data[1];
+        $email = $pers_data[3];
+    }
 
-    $select->execute(array($ID_Student));
-    $info = $select->fetchAll();
-
-    $pers_data = $info[0];
-    $name = $pers_data[0];
-    $surname = $pers_data[1];
-    $email = $pers_data[3];
 ?>
 <div class="container">
     <div class="row">
@@ -62,7 +76,9 @@ if(isset($_SESSION['ID'])) {
                                     <input type = "text" name = "pers_data[]" id = "Surname" class="form-control form-control-lg" disabled value = "<?= $surname ?>" placeholder = "Enter a surname" required autofocus >
                                 </div>
                                 <div class="form-group">
-                                    <input type = "number" name = "pers_data[]" id = "username" class="form-control form-control-lg" disabled value = "<?= $ID_Student ?>" placeholder = "Enter your email" required autofocus >
+                                    <input type="number" name="pers_data[]" id="username"
+                                           class="form-control form-control-lg" disabled value="<?= $ID ?>"
+                                           placeholder="Enter your email" required autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input type = "email" name = "pers_data[]" id = "Email" class="form-control form-control-lg" value = "<?= $email ?>" placeholder = "Enter an email" required autofocus >
@@ -88,14 +104,21 @@ if(isset($_SESSION['ID'])) {
 </div>
 <?php }elseif (isset($_POST['$pers_data[]'])){
     $bdd = co();
-    $ID_Student = $_SESSION['ID'];
+    $ID = $_SESSION['ID'];
     $email = $pers_data[3];
     $password = md5($pers_data[5]);
     if($md5_password == $info[0]["Password"]) {
-        $select = $bdd->prepare("UPDATE student SET Email = $email , Password =  $password  WHERE ID_student = ?");
+        if (preg_match("#^2#", $ID)) {
+            $select = $bdd->prepare("UPDATE student SET Password =  $newPassword  WHERE ID_student = ?");
 
-        $select->execute(array($ID_Student));
-        $info = $select->fetchAll();
+            $select->execute(array($ID));
+            $info = $select->fetchAll();
+        } elseif (preg_match("#^1#", $ID)) {
+            $select = $bdd->prepare("UPDATE lecturer SET Password =  $newPassword  WHERE ID_lecturer = ?");
+
+            $select->execute(array($ID));
+            $info = $select->fetchAll();
+        }
     }
 }else
     header("location:index.php");?>

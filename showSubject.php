@@ -11,8 +11,10 @@
 ?>
 <?php
 session_start();
-session_unset();
-session_destroy();
+require_once("controller/DBconn.php");
+require_once("controller/functions.php");
+require_once("include_meta.php");
+include("Menu.php");
 
-header("location:index.php");
-exit();
+
+showSubject($_SESSION['ID']);

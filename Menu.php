@@ -1,9 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ayman
- * Date: 08/05/2018
- * Time: 20:49
+/*
+ * Student 1 : Ayman Fattar
+ * Student 2 : Theodore D'Avray
+ * Student# 1 : 218327676
+ * Student# 2 : 218327641
+ * Declaration: This is my own work and
+ *  any code obtained from other sources
+ *  will be referenced
  */
 ?>
 
@@ -21,11 +24,18 @@
             <ul class="nav navbar-nav">
                 <li><a href="addAssessment.php">Add Assessment</a></li>
             </ul>
-        <?php } ?>
-
+                <?php } elseif (preg_match("#^2#", $ID)) { ?>
+                    <ul class="nav navbar-nav">
+                        <li><a href="showAssessment.php">Show Assessment</a></li>
+                    </ul>
+                <?php } ?>
                 <ul class="nav navbar-nav">
-                    <li><p class="navbar-text navbar-right">Signed in as <a href="editProfil.php" class="navbar-link"><?= $_SESSION["ID"] ?></a></p>
-                </li>                   <li><a class="navbar-right" href="Logout.php">Log out</a></li>
+                    <li><a href="showSubject.php">Show my subject</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><p class="navbar-text">Signed in as <a href="editProfil.php"
+                                                               class="navbar-link"><?= $_SESSION["ID"] ?></a></p></li>
+                    <li><a href="Logout.php">Log out</a></li>
                 </ul>
             <?php }
             else{ ?>

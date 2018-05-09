@@ -1,10 +1,16 @@
+<?php
+/*
+ * Student 1 : Ayman Fattar
+ * Student 2 : Theodore D'Avray
+ * Student# 1 : 218327676
+ * Student# 2 : 218327641
+ * Declaration: This is my own work and
+ *  any code obtained from other sources
+ *  will be referenced
+ */
+?>
 <!DOCTYPE html>
 <html lang="en">
-
-<!--
-    Théodore d'Avray
-    Student number : 218327641
--->
 
 <head>
 
@@ -46,36 +52,36 @@ session_start();
         foreach($info as $index => $values){
             ?>
             <tr>
-                    <td> <?= $values['FName'] ?></td>
-                    <td><?= $values['LName'] ?></td>
-                    <td><?= $values['Email'] ?></td>
-                    <td><?= $values['CellNum'] ?></td>
-                    <td>
+                <td> <?= $values['FName'] ?></td>
+                <td><?= $values['LName'] ?></td>
+                <td><?= $values['Email'] ?></td>
+                <td><?= $values['CellNum'] ?></td>
+                <td>
                     <button>
                         <?php
-            if(!$values['userImage'] ){
-                           ?>
-                        <img height="70,width=60" src="img/30.jpg" onclick="window.open(this.src,'_blank', 'location=yes,height=500,width=500,status=yes')">
-                         <?php
-            } else{ ?>
+                        if(!$values['userImage'] ){
+                            ?>
+                            <img height="70,width=60" src="img/30.jpg" onclick="window.open(this.src,'_blank', 'location=yes,height=500,width=500,status=yes')">
+                            <?php
+                        } else{ ?>
                             <img height="70,width=60" src="img/<?= $values['userImage']?>.jpg" onclick="window.open(this.src,'_blank', 'location=yes,height=500,width=500,status=yes')">
-                       <?php }
-                    ?>
+                        <?php }
+                        ?>
                     </button>
-                    </td>
+                </td>
                 <?php
                 if(isset($_SESSION["ID"])) {
                     $ID = $_SESSION['ID'];
                     if (preg_match("#^1#",$ID)) { ?>
-                    <td><button class="btn btn-primary btn-lg" onclick="window.open('#','_blank', 'location=yes,status=yes')"><span class="glyphicon glyphicon-user" aria-hidden="true">##</span></button></td>
-                   <?php }
+                        <td><button class="btn btn-primary btn-lg" onclick="window.open('#','_blank', 'location=yes,status=yes')"><span class="glyphicon glyphicon-user" aria-hidden="true">##</span></button></td>
+                    <?php }
                 }
                 ?>
-                  </tr>
+            </tr>
         <?php } ?>
     </table>
 
-<!-- Bootstrap core JavaScript -->
+    <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </div>

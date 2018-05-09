@@ -9,10 +9,15 @@
  *  will be referenced
  */
 ?>
-<?php
-session_start();
-session_unset();
-session_destroy();
 
-header("location:index.php");
-exit();
+<?php
+
+
+session_start();
+require_once("controller/DBconn.php");
+require_once("controller/functions.php");
+require_once("include_meta.php");
+include("Menu.php");
+
+
+showAssessment($_SESSION['ID']);

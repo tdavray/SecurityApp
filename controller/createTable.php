@@ -1,4 +1,16 @@
 <?php
+/*
+ * Student 1 : Ayman Fattar
+ * Student 2 : Theodore D'Avray
+ * Student# 1 : 218327676
+ * Student# 2 : 218327641
+ * Declaration: This is my own work and
+ *  any code obtained from other sources
+ *  will be referenced
+ */
+?>
+
+<?php
 
 require_once "DBconn.php";
 
@@ -188,8 +200,7 @@ foreach ($venueData as $key => $value){
         $insertLab = $bdd->prepare('INSERT INTO Lab_room(ID_venue) 
                               VALUES (?);');
         $insertLab->execute(array($value[0]));
-    }
-    else{
+    } else{
         $insertThe = $bdd->prepare('INSERT INTO Theory_room(ID_venue) 
                               VALUES (?);');
         $insertThe->execute(array($value[0]));
